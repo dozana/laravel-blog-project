@@ -1,17 +1,26 @@
 <?php
 
+use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Blog Project
-|--------------------------------------------------------------------------
-*/
+Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
+    Route::get('/admin/login', [LoginController::class, 'showLogin'])->withoutMiddleware([Admin::class])->name('ShowLogin');
+    Route::post('/admin/signin', [LoginController::class, 'login'])->withoutMiddleware([Admin::class])->name('AdminLogin');
+    Route::get('admin/logout', [LoginController::class, 'logout'])->name('AdminLogout');
+
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('AdminMainPage');
+});
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
 
 //Route::get('/', function () {
 //    return view('landing.index');
