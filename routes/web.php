@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminsController;
+use App\Http\Controllers\Admin\ContactsController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\Admin;
@@ -19,8 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('admins', AdminsController::class);
 
-
+Route::resource('contacts', ContactsController::class, ['only' => ['edit','update']]);
+Route::get('/contacts/cache', [ContactsController::class, 'cache'])->name('contacts.cache');
 
 //Route::get('/', function () {
 //    return view('landing.index');

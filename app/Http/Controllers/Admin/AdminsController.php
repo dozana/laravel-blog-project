@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 
 class AdminsController extends BaseController
@@ -11,7 +12,9 @@ class AdminsController extends BaseController
      */
     public function index()
     {
-        //
+        $items = Admin::all();
+
+        return view('admin.admins.index', compact('items'));
     }
 
     /**
@@ -19,7 +22,7 @@ class AdminsController extends BaseController
      */
     public function create()
     {
-        //
+        return view('admin.admins.create');
     }
 
     /**
@@ -27,7 +30,16 @@ class AdminsController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:6|max:255',
+            'email' => 'required|email|max:255|unique:admins',
+        ]);
+
+        $store = Admin::store($request);
+        $request->session()->flash('result', $store);
+
+        return redirect()->route('admins.index');
     }
 
     /**
@@ -43,7 +55,9 @@ class AdminsController extends BaseController
      */
     public function edit(string $id)
     {
-        //
+        $item = Admin::findOrFail($id);
+
+        return view('admin.admins.edit', compact('item'));
     }
 
     /**
@@ -51,14 +65,30 @@ class AdminsController extends BaseController
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:admins,email,' . $id,
+        ]);
+
+        $item = Admin::findOrFail($id);
+        $update = Admin::updateItem($request, $item);
+        $request->session()->flash('result', $update);
+
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        if($id == 1) {
+            return redirect()->back();
+        }
+
+        $delete = Admin::find($id)->delete();
+        $request->session()->flash('result', $delete);
+
+        return redirect()->back();
     }
 }

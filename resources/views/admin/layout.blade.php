@@ -52,24 +52,30 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon far fa-list-alt"></i>
                             <p>
-                                Categories
+                                Admins
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('admins.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>All Categories</p>
+                                    <p>All Admins</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('admins.create') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Add Category</p>
+                                    <p>Create Admin</p>
                                 </a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('contacts.edit', 1) }}" class="nav-link">
+                            <i class="nav-icon fas fa-mail-bulk"></i>
+                            <p>Contact</p>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -77,25 +83,11 @@
     </aside>
 
     <div class="content-wrapper">
-
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-12">
-                        <h1 class="m-0">Dashboard</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         @yield('content')
-
     </div>
 
     <footer class="main-footer">
-        <div class="float-right d-none d-sm-inline">
-            Anything you want
-        </div>
+        <div class="float-right d-none d-sm-inline">v1</div>
         <strong>&copy; 2023.</strong> All rights reserved.
     </footer>
 
