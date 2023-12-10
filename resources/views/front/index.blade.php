@@ -1,4 +1,6 @@
-@extends('layouts.site')
+@extends('front.layout')
+
+@section('title', trans('menu.index'))
 
 @section('content')
     <div class="container">

@@ -4,10 +4,15 @@ use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\ArticlesController;
 use App\Http\Controllers\Admin\ContactsController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){
+    Route::get('/', [IndexController::class, 'index'])->name('index');
+});
 
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('/admin/login', [LoginController::class, 'showLogin'])->withoutMiddleware([Admin::class])->name('ShowLogin');
@@ -19,11 +24,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     })->name('AdminMainPage');
 });
 
-Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){
-    Route::get('/', function () {
-        return view('welcome');
-    });
-});
+
 
 Route::resource('admins', AdminsController::class);
 
