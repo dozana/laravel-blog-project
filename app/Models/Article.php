@@ -98,11 +98,20 @@ class Article extends Model
         return false;
     }
 
+//    public static function all($local = null)
+//    {
+//        return Article::join('articles_translates', 'articles.id', '=', 'articles_translates.article_id')
+//            ->where('articles_translates.lang', $local)
+//            ->select('articles.*', 'articles_translates.title')
+//            ->orderBy('id', 'desc')
+//            ->get();
+//    }
+
     public static function all($local = null)
     {
         return Article::join('articles_translates', 'articles.id', '=', 'articles_translates.article_id')
             ->where('articles_translates.lang', $local)
-            ->select('articles.*', 'articles_translates.title')
+            ->select('articles.*', 'articles_translates.title', 'articles_translates.description')
             ->orderBy('id', 'desc')
             ->get();
     }
