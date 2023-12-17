@@ -12,6 +12,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){
     Route::get('/', [IndexController::class, 'index'])->name('index');
+    Route::get('/article/{id}', [IndexController::class, 'article'])->name('article');
 });
 
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
@@ -23,8 +24,6 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
         return view('admin.index');
     })->name('AdminMainPage');
 });
-
-
 
 Route::resource('admins', AdminsController::class);
 

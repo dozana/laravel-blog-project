@@ -32,11 +32,15 @@
     </div>
 </nav>
 
-<header class="py-5 bg-light border-bottom mb-4">
+@php
+    $articles_page = Route::current()->getName() == 'article' ? true : false;
+@endphp
+
+<header class="py-5 bg-light border-bottom mb-4" style="background-image: url('{{ $articles_page ? $article->image : asset('assets/front/img/noisy-tv.jpg') }}')">
     <div class="container">
         <div class="text-center my-5">
-            <h1 class="fw-bolder">Welcome to my Blog!</h1>
-            <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+            <h1 class="fw-bolder">{{ $articles_page ? $article->title : 'Clean Blog' }}</h1>
+            <p class="lead mb-0">Blog Slogan</p>
         </div>
     </div>
 </header>

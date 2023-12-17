@@ -174,4 +174,13 @@ class Article extends Model
 
         return false;
     }
+
+    public static function item($local = null, $id = null)
+    {
+        return Article::join('articles_translates', 'articles.id', '=', 'articles_translates.article_id')
+            ->where('articles.id', $id)
+            ->where('articles_translates.lang', $local)
+            ->select('articles.*', 'articles_translates.title','articles_translates.description','articles_translates.text')
+            ->first();
+    }
 }
