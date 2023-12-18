@@ -13,6 +13,10 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){
     Route::get('/', [IndexController::class, 'index'])->name('index');
     Route::get('/article/{id}', [IndexController::class, 'article'])->name('article');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 });
 
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
@@ -26,20 +30,9 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
 });
 
 Route::resource('admins', AdminsController::class);
-
 Route::resource('contacts', ContactsController::class, ['only' => ['edit','update']]);
 Route::get('/contacts/cache', [ContactsController::class, 'cache'])->name('contacts.cache');
-
 Route::resource('articles', ArticlesController::class);
-
-
-//Route::get('/', function () {
-//    return view('landing.index');
-//});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
