@@ -20,6 +20,38 @@
                 <li class="nav-item"><a class="nav-link" href="#!">@lang('menu.about')</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">@lang('menu.contact')</a></li>
 
+                @auth
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard') }}" class="nav-link px-lg-3">
+                            @lang('site.dashboard')
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#!"
+                           class="nav-link px-lg-3"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        >
+                            @lang('site.logout')
+                        </a>
+                    </li>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3" href="{{ route('register') }}">
+                            @lang('site.register')
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3" href="{{ route('login') }}">
+                            @lang('site.login')
+                        </a>
+                    </li>
+                @endauth
+
                 @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                     <li class="nav-item">
                         <a  href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" class="nav-link">

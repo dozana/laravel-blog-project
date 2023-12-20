@@ -19,4 +19,6 @@ return [
     'info_updated' => 'Info updated',
     'update_error' => 'Info error',
     'old_password_error' => 'Old password error',
+    'logout' => 'Logout',
+    'login' => 'Login',
 ];
