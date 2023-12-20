@@ -21,4 +21,11 @@ return [
     'old_password_error' => 'Old password error',
     'logout' => 'Logout',
     'login' => 'Login',
+    'waiting_for_admin_confirm' => 'Waiting for admin confirm',
+    'inserting_error' => 'Inserting error',
+    'comments' => 'Comments',
+    'comment' => 'Comment',
+    'login_to_comment' => 'Login to comment',
+    'no_comment' => 'No comment',
+    'add' => 'Add',
 ];

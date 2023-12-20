@@ -183,4 +183,10 @@ class Article extends Model
             ->select('articles.*', 'articles_translates.title','articles_translates.description','articles_translates.text')
             ->first();
     }
+
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

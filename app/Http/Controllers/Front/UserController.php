@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -79,4 +81,40 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+
+    public function comment(Request $request)
+    {
+        $this->validate($request,[
+            'article_id' => 'required|integer',
+            'comment' => 'required|string|max:255',
+        ]);
+
+        $article = Article::find($request->article_id);
+
+        if(!$article) {
+            return redirect()->back();
+        }
+
+        $create = Comment::create([
+            'user_id' => Auth::user()->id,
+            'article_id' => $request->article_id,
+            'comment' => $request->comment,
+            'created_at' => new \DateTime()
+        ]);
+
+        if($create) {
+            $request->session()->flash('inserting_results', [
+                'class' => 'success',
+                'message' => trans('site.waiting_for_admin_confirm')
+            ]);
+        } else {
+            $request->session()->flash('inserting_results', [
+                'class' => 'danger',
+                'message' => trans('site.inserting_error')
+            ]);
+        }
+
+        return redirect()->back();
+    }
+
 }

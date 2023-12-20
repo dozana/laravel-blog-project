@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\ArticlesController;
+use App\Http\Controllers\Admin\CommentsController;
 use App\Http\Controllers\Admin\ContactsController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Front\IndexController;
@@ -19,25 +20,26 @@ Route::group([
         'localeViewPath'
     ]], function(){
 
-    // Main page
-    Route::get('/', [IndexController::class, 'index'])->name('index');
+        // Main page
+        Route::get('/', [IndexController::class, 'index'])->name('index');
 
-    // Per article
-    Route::get('/article/{id}', [IndexController::class, 'article'])->name('article');
+        // Per article
+        Route::get('/article/{id}', [IndexController::class, 'article'])->name('article');
 
-//    Route::get('/dashboard', function () {
-//        return view('dashboard');
-//    })->middleware(['auth', 'verified'])->name('dashboard');
+    //    Route::get('/dashboard', function () {
+    //        return view('dashboard');
+    //    })->middleware(['auth', 'verified'])->name('dashboard');
 
-    Route::middleware('auth')->group(function () {
-        Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-        Route::post('/update_data', [UserController::class, 'update_data'])->name('update_data');
-        Route::post('/update_password', [UserController::class, 'update_password'])->name('update_password');
+        Route::middleware('auth')->group(function () {
+            Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+            Route::post('/update_data', [UserController::class, 'update_data'])->name('update_data');
+            Route::post('/update_password', [UserController::class, 'update_password'])->name('update_password');
+            Route::post('/comment/{id}', [UserController::class, 'comment'])->name('comment');
 
-//        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    });
+    //        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    //        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    //        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        });
 
 });
 
@@ -64,6 +66,11 @@ Route::group([
 
     // Articles
     Route::resource('articles', ArticlesController::class);
+
+    // Comments
+    Route::resource('comments', CommentsController::class, ['only' => ['index','destroy']]);
+    Route::post('/comments/confirm', [CommentsController::class, 'confirm'])->name('comments.confirm');
+
 });
 
 require __DIR__.'/auth.php';

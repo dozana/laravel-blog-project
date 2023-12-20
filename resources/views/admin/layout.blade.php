@@ -50,6 +50,29 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-list-alt"></i>
+                            <p>
+                                Admins
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admins.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>All Admins</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admins.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Create Admin</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon far fa-copy"></i>
                             <p>
                                 Articles
@@ -72,27 +95,10 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon far fa-list-alt"></i>
-                            <p>
-                                Admins
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
+                        <a href="{{ route('comments.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>Comments</p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('admins.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>All Admins</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admins.create') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Create Admin</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('contacts.edit', 1) }}" class="nav-link">
